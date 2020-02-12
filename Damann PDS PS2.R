@@ -19,28 +19,25 @@ for(i in 1:7){
 #If the two numbers sum to between 8 and 12 inclusively, the game ends. I make an if
 #statement to do this, asking for the sum of each specific iteration. If the sum is
 #between 8 and 12, the function breaks and prints out the values. If not, the iterations
-#continue until a 2 or a 6 is rolled or there have been 1000 pairs of rolls. I interpret
-#this question to mean that you are asking for the average sum of the dice cast each
-#time you roll the pair, so this is the value I return. 
+#continue until a 2 or a 6 is rolled.
 set.seed(14)
-totalRoll <- NULL
 rolls <- NULL
-for(i in 1:1000){
-  x[i] <- sample(1:6, 1)
-  y[i] <- sample(1:6, 1)
-  rolls <- c(rolls, x[i], y[i])
-  firstSum <- x[1]+y[1]
-  totalRoll <- c(totalRoll, x[i]+y[i])
-  if (firstSum == 8 | firstSum == 9 | firstSum == 10 | firstSum == 11 | firstSum == 12) {
-    print("Sum of first roll was between 8 and 12")
+for(j in 1:1000){
+for(i in 1:50){
+   x <- sample(1:6, 2, replace=T)
+  a.roll <- sum(x)
+  if(a.roll >= 8 & i==1) {
+    rolls <- c(rolls,i)
     break
-  } else if (x[i] == 2 | x[i] == 6 | y[i] == 2 | y[i] == 6) {
-    print("One roll equaled 2 or 6")
-    print(paste("The average number of dice casts per game is", mean(totalRoll)))
-    print(c(rolls))
+  } else if (i != 1 & x[1] == 2 | x[2] == 2 | x[1] == 6 | x[2] == 6) {
+    rolls <- c(rolls,i)
     break
   }
 }
+}
+
+#Below is the average number of rolls produced each game. 
+mean(rolls)
 
 #3
 #First, I load in the dataset using the readr package. This package is useful for letting R figure out
@@ -52,8 +49,8 @@ View(GSS_data)
 
 ##Using plyr, I can see the actual counts for each president. I do this just so I can see whether
 #I end up being correct. 
-library(plyr)
-count(GSS_data, 'pres16')
+#library(plyr)
+#count(GSS_data, 'pres16')
 
 #Now I create my function using a series of if statements. Using the which function allows me to
 #grab only the elements equal to the president name I am looking for. Using length around which
