@@ -40,7 +40,21 @@ for(i in 1:1000){
   }
 }
 
+#3
+#First, I load in the dataset using the readr package. This package is useful for letting R figure out
+#how to deal with what data you are reading in. I call this GSS_data and use the View function
+#to pull up the data in a new window. 
+library(readr)
+GSS_data <- read_csv("http://politicaldatascience.com/PDS/Problem%20Sets/Problem%20Set%202/GSS-data.csv")
+View(GSS_data)
 
-
-
-
+vote.choice <- function(candidate) {
+  if(candidate == "Clinton") {
+    print()
+  } else if(candidate == "Trump") {
+    print()
+  } else if(candidate == "Other") {
+    print()
+  } else
+    print("Please enter either 'Trump' 'Clinton' or 'Other' into the function to return a valid response.")
+}
