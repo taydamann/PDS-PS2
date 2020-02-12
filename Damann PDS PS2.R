@@ -19,7 +19,9 @@ for(i in 1:7){
 #If the two numbers sum to between 8 and 12 inclusively, the game ends. I make an if
 #statement to do this, asking for the sum of each specific iteration. If the sum is
 #between 8 and 12, the function breaks and prints out the values. If not, the iterations
-#continue until a 2 or a 6 is rolled or there have been 1000 iterations. 
+#continue until a 2 or a 6 is rolled or there have been 1000 pairs of rolls. I interpret
+#this question to mean that you are asking for the average sum of the dice cast each
+#time you roll the pair, so this is the value I return. 
 set.seed(14)
 totalRoll <- NULL
 rolls <- NULL
@@ -48,9 +50,14 @@ library(readr)
 GSS_data <- read_csv("http://politicaldatascience.com/PDS/Problem%20Sets/Problem%20Set%202/GSS-data.csv")
 View(GSS_data)
 
+##Using plyr, I can see the actual counts for each president. I do this just so I can see whether
+#I end up being correct. 
 library(plyr)
 count(GSS_data, 'pres16')
 
+#Now I create my function using a series of if statements. Using the which function allows me to
+#grab only the elements equal to the president name I am looking for. Using length around which
+#give me an actual count.
 vote.choice <- function(candidate) {
   if(candidate == "Clinton") {
     countClinton <- length(which(GSS_data$pres16 == "Clinton"))
@@ -64,15 +71,22 @@ vote.choice <- function(candidate) {
   } else
     print("Please enter either 'Trump' 'Clinton' or 'Other' into the function to return a valid response.")
 }
+#Now I print my results to show that everything worked. 
 vote.choice("Trump")
 vote.choice("Clinton")
 vote.choice("Other")
 
 #4
+#The first step is to install and load in the library. Using the View function
+#opens a new window with this data so I can view it. 
+
 #install.packages("fivethirtyeight")
 library(fivethirtyeight)
 View(cabinet_turnover)
 
+#Now I start to build my function. This function takes in the argument "president"
+#followed by several if statements. I am using the logical "or" command here because
+#several of the presidents served the same number of days. 
 appoint <- function(president) {
   appointServe <- mean(cabinet_turnover$days[cabinet_turnover$president == president], na.rm=T)
   if(president == "Carter" | president == "Bush 41") {
@@ -90,25 +104,37 @@ appoint <- function(president) {
 
 #Now I check to see if my answer matches the one that Jacob offered, and it does!
 appoint("Reagan")
-View(congress_age)
 
-mean(congress_age$age[congress_age$congress == 113])
-
-congress_df <- NULL
-for(i in 80:113) {
-  means <- mean(congress_age$age[congress_age$congress == i])
-  congress_df <- rbind(congress_df, data.frame(i, means))
-  print(congress_df)
-}
-
-state_df <- NULL
-for(i in unique(congress_age$state)) {
-  means <- mean(congress_age$age[congress_age$state == i])
-  state_df <- rbind(state_df, data.frame(i, means))
-  print(state_df)
-}
 
 #5
+#First I want to open a tab with the data so I can view them. 
+View(congress_age)
+
+#below I am just seeing if these lines of code work...
+#mean(congress_age$age[congress_age$congress == 113])
+
+#congress_df <- NULL
+#for(i in 80:113) {
+  #means <- mean(congress_age$age[congress_age$congress == i])
+  #congress_df <- rbind(congress_df, data.frame(i, means))
+  #print(congress_df)
+#}
+
+#state_df <- NULL
+#for(i in unique(congress_age$state)) {
+  #means <- mean(congress_age$age[congress_age$state == i])
+  #state_df <- rbind(state_df, data.frame(i, means))
+  #print(state_df)
+#}
+
+#Above, you can see the product of me trying to run commands
+#before attempting to create a function. Now I put these into my
+#function. The user should specify whether they want to see
+#'congress' or 'state', which they will put as an argument.
+#The argument the user inputs will route them through if statements
+#to one of the three outputs below. Each output is created using
+#a simple for loop. 
+
 congress_stats <- function(x) {
   if(x == "congress") {
     congress_df <- NULL
