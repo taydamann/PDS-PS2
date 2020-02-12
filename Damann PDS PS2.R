@@ -90,6 +90,54 @@ appoint <- function(president) {
 
 #Now I check to see if my answer matches the one that Jacob offered, and it does!
 appoint("Reagan")
+View(congress_age)
+
+mean(congress_age$age[congress_age$congress == 113])
+
+congress_df <- NULL
+for(i in 80:113) {
+  means <- mean(congress_age$age[congress_age$congress == i])
+  congress_df <- rbind(congress_df, data.frame(i, means))
+  print(congress_df)
+}
+
+state_df <- NULL
+for(i in unique(congress_age$state)) {
+  means <- mean(congress_age$age[congress_age$state == i])
+  state_df <- rbind(state_df, data.frame(i, means))
+  print(state_df)
+}
+
+#5
+congress_stats <- function(x) {
+  if(x == "congress") {
+    congress_df <- NULL
+    for(i in 80:113) {
+      means <- mean(congress_age$age[congress_age$congress == i])
+      congress_df <- rbind(congress_df, data.frame(i, means))
+      print(congress_df)
+  }
+  } else if(x == "state") {
+    state_df <- NULL
+    for(i in unique(congress_age$state)) {
+      means <- mean(congress_age$age[congress_age$state == i])
+      state_df <- rbind(state_df, data.frame(i, means))
+      print(state_df)
+    }
+  } else print("Please input either 'congress' or 'state'.")
+}
+
+#Testing if it works, and it does!
+congress_stats("congress")
+congress_stats("state")
+congress_stats("impeachment")
+
+
+
+
+
+
+
 
 
 
