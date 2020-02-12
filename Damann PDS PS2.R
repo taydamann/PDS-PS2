@@ -48,13 +48,23 @@ library(readr)
 GSS_data <- read_csv("http://politicaldatascience.com/PDS/Problem%20Sets/Problem%20Set%202/GSS-data.csv")
 View(GSS_data)
 
+library(plyr)
+count(GSS_data, 'pres16')
+
 vote.choice <- function(candidate) {
   if(candidate == "Clinton") {
-    print()
+    countClinton <- length(which(GSS_data$pres16 == "Clinton"))
+    print(countClinton)
   } else if(candidate == "Trump") {
-    print()
+    countTrump <- length(which(GSS_data$pres16 == "Trump"))
+    print(countTrump)
   } else if(candidate == "Other") {
-    print()
+    countOther <- length(GSS_data$pres16) - (577+764)
+    print(countOther)
   } else
     print("Please enter either 'Trump' 'Clinton' or 'Other' into the function to return a valid response.")
 }
+vote.choice("Trump")
+vote.choice("Clinton")
+vote.choice("Other")
+
