@@ -75,19 +75,21 @@ View(cabinet_turnover)
 
 appoint <- function(president) {
   appointServe <- mean(cabinet_turnover$days[cabinet_turnover$president == president], na.rm=T)
-  if(president == c("Carter", "Bush 41")) {
+  if(president == "Carter" | president == "Bush 41") {
     return(appointServe/1461)
-  } else if(president == c("Reagan", "Clinton", "Bush 43", "Obama")) {
+  } else if(president == "Reagan" | president == "Clinton") {
     return(appointServe/2922)
-  } else if(president == "Bush 41") {
-    return(appointServe/1461)
-  } else if(president == "Clinton") {
+  } else if(president == "Bush 43" | president == "Obama") {
     return(appointServe/2922)
-  } else if(president == "Bush 43") {
-  
+  } else if(president == "Trump") {
+    return(appointServe/1105)
+  } else {
+    return("Please enter Carter, Reagan, Bush 41, Clinton, Bush 43, Obama or Trump.")
   }
 }
 
+#Now I check to see if my answer matches the one that Jacob offered, and it does!
+appoint("Reagan")
 
 
 
