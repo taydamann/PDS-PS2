@@ -68,3 +68,26 @@ vote.choice("Trump")
 vote.choice("Clinton")
 vote.choice("Other")
 
+#4
+#install.packages("fivethirtyeight")
+library(fivethirtyeight)
+View(cabinet_turnover)
+
+appoint <- function(president) {
+  appointServe <- mean(cabinet_turnover$days[cabinet_turnover$president == president], na.rm=T)
+  if(president == c("Carter", "Bush 41")) {
+    return(appointServe/1461)
+  } else if(president == c("Reagan", "Clinton", "Bush 43", "Obama")) {
+    return(appointServe/2922)
+  } else if(president == "Bush 41") {
+    return(appointServe/1461)
+  } else if(president == "Clinton") {
+    return(appointServe/2922)
+  } else if(president == "Bush 43") {
+  
+  }
+}
+
+
+
+
